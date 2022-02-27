@@ -59,7 +59,7 @@ class HomeTableViewController: UITableViewController {
     func loadMoreTweets(){
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         //we will be adding 10 more tweets to the original
-        numberOfTweet = numberOfTweet + 10
+        numberOfTweet = numberOfTweet + 5
         let myParms = ["count": numberOfTweet]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParms, success:
