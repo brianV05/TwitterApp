@@ -16,23 +16,30 @@ class HomeTableViewController: UITableViewController {
     var tweetArray = [NSDictionary]()   //array of dict.
     var numberOfTweet: Int!
     
+    let myRefreshControl = UIRefreshControl()   //UIRefreshVControl
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         loadTweet() // when the view load, run this func
+        
+        //addtarget what kind of action, you want to tie to this refresh control
+        //self = same screen  ,   action: reload the loadtweet func   ,   for: '''
+        myRefreshControl.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
+        //telling the table which refresh control to use
+        tableView.refreshControl = myRefreshControl
     }
     
-    func loadTweet(){
-        let myUrl  = "https://api.twitter.com/1.1/statuses/home_timelin.json"    //home_timeline url
-        let myParms = ["count": 10]  //parameters
+    @objc func loadTweet(){
+        numberOfTweet = 10
         
-        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParms, success: { [self]
-            //Results of tweets
-            (tweets: [NSDictionary]) in
+        let myUrl  = "https://api.twitter.com/1.1/statuses/home_timeline.json"  //home_timeline url
+        let myParms = ["count": numberOfTweet]  //parameters
+        
+        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParms, success:
+        {(tweets: [NSDictionary]) in   //Results of tweets
             
             //before appending, we should clean up array
             self.tweetArray.removeAll()      //empty entire array
-            
             //"for every single tweet from the created tweets
             for tweet in tweets{
                 //"for every tweet i get from the list of tweets, i want it to add those tweet to my array"
@@ -40,12 +47,40 @@ class HomeTableViewController: UITableViewController {
             }
             
             self.tableView.reloadData()
+            self.myRefreshControl.endRefreshing()  // this is: to stop the loading on top to go away
                     
         }, failure:{ (Error) in
             print("could not retreive tweets! oh no!!")
-
         })
+    }
+    
+    
+    //infinite scroll
+    func loadMoreTweets(){
+        let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
+        //we will be adding 10 more tweets to the original
+        numberOfTweet = numberOfTweet + 10
+        let myParms = ["count": numberOfTweet]
         
+        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParms, success:
+        {(tweets: [NSDictionary]) in
+            
+            self.tweetArray.removeAll()
+            for tweet in tweets{
+            
+                self.tweetArray.append(tweet)
+            }
+            self.tableView.reloadData()
+        }, failure:{ (Error) in
+            print("could not retreive tweets! oh no!!")
+        })
+    }
+    
+    //this is a func when the user scrolls and get to the end of the table
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row + 1 == tweetArray.count{   //"when the user get to the end of the page
+            loadMoreTweets()        // run more tweets
+        }
     }
     
     
@@ -75,7 +110,7 @@ class HomeTableViewController: UITableViewController {
         //for the name
         //extract the user becuase the value "name" is in the value "user"
         let user = tweetArray[indexPath.row]["user"] as? NSDictionary
-        cell.userNameLabel.text = user?["name"] as? String
+        cell.userNameLabel.text = user!["name"] as? String
         
         //for the content
         cell.tweetContentLabel.text = tweetArray[indexPath.row]["text"] as? String
@@ -91,10 +126,10 @@ class HomeTableViewController: UITableViewController {
         return cell
     }
     
-
     
     
-
+    
+    
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
