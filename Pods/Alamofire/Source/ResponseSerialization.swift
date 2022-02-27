@@ -122,7 +122,11 @@ extension DataRequest {
                     timeline: self.timeline
                 )
 
-                dataResponse.add(self.delegate.metrics)
+                if #available(iOS 10.0, *) {
+                    dataResponse.add(self.delegate.metrics)
+                } else {
+                    // Fallback on earlier versions
+                }
 
                 completionHandler(dataResponse)
             }

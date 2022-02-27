@@ -83,10 +83,6 @@ class HomeTableViewController: UITableViewController {
         }
     }
     
-    
-    
-    
-    
         //logout button
     @IBAction func onLogout(_ sender: Any) {
         TwitterAPICaller.client?.logout()    // this will log out in the background
@@ -127,10 +123,6 @@ class HomeTableViewController: UITableViewController {
     }
     
     
-    
-    
-    
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -140,7 +132,4 @@ class HomeTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return tweetArray.count
     }
-
-   
-
 }
