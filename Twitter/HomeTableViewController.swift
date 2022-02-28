@@ -18,15 +18,18 @@ class HomeTableViewController: UITableViewController {
     
     let myRefreshControl = UIRefreshControl()   //UIRefreshVControl
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {  //viewDidLoad repeats only ONE time
         super.viewDidLoad()
-        loadTweet() // when the view load, run this func
-        
         //addtarget what kind of action, you want to tie to this refresh control
         //self = same screen  ,   action: reload the loadtweet func   ,   for: '''
         myRefreshControl.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
         //telling the table which refresh control to use
         tableView.refreshControl = myRefreshControl
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {  //whereas, viewDidAppear repeats more than onces
+        super.viewDidAppear(animated)
+        loadTweet() // when the view Appears, run this func
     }
     
     @objc func loadTweet(){
