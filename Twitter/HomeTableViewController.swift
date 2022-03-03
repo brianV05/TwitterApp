@@ -1,5 +1,5 @@
 //
-//  HomeTableViewController.swift
+//  HomeTableViewController.swiftzA
 //  Twitter
 //
 //  Created by Brian Velecela on 2/26/22.
@@ -15,7 +15,6 @@ class HomeTableViewController: UITableViewController {
     // let = can be change
     var tweetArray = [NSDictionary]()   //array of dict.
     var numberOfTweet: Int!
-    
     let myRefreshControl = UIRefreshControl()   //UIRefreshVControl
     
     override func viewDidLoad() {  //viewDidLoad repeats only ONE time
@@ -25,11 +24,16 @@ class HomeTableViewController: UITableViewController {
         myRefreshControl.addTarget(self, action: #selector(loadTweet), for: .valueChanged)
         //telling the table which refresh control to use
         tableView.refreshControl = myRefreshControl
+        tableView.rowHeight = UITableView.automaticDimension // this is to have a fixed table view cell
+        tableView.estimatedRowHeight = 150
+        print("ViewDidLoad was called")
+       
     }
     
     override func viewDidAppear(_ animated: Bool) {  //whereas, viewDidAppear repeats more than onces
         super.viewDidAppear(animated)
-        loadTweet() // when the view Appears, run this func
+        self.loadTweet() // when the view Appears, run this func
+        print("ViewDidAppear was called")
     }
     
     @objc func loadTweet(){
@@ -48,7 +52,6 @@ class HomeTableViewController: UITableViewController {
                 //"for every tweet i get from the list of tweets, i want it to add those tweet to my array"
                 self.tweetArray.append(tweet)
             }
-            
             self.tableView.reloadData()
             self.myRefreshControl.endRefreshing()  // this is: to stop the loading on top to go away
                     
@@ -115,13 +118,17 @@ class HomeTableViewController: UITableViewController {
         cell.tweetContentLabel.text = tweetArray[indexPath.row]["text"] as? String
         
         //for the image profile
-        let imageUrl = URL(string: (user?["profile_image_url_https"] as? String)!)
+        let imageUrl = URL(string: (user!["profile_image_url_https"] as! String))
         let data = try? Data(contentsOf: imageUrl!)
         
         if let imageData = data{
             cell.profileImageView.image = UIImage(data: imageData)
         }
         
+        //check if its favorited or not
+        //this is part of the retweet and fav section 
+        cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
         return cell
     }
     

@@ -9,13 +9,9 @@
 import UIKit
 
 class TweetViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tweetTextView.becomeFirstResponder()  //keyboard will display
-    }
-    @IBOutlet weak var tweetTextView: UITextView!
     
+
+    @IBOutlet weak var tweetTextView: UITextView!    
     @IBAction func cancelButton(_ sender: Any) {
         //with this cancel button, when we click on it, we went it to dismiss from that screen
         dismiss(animated: true, completion: nil)
@@ -36,9 +32,8 @@ class TweetViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    
-
-   
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tweetTextView.becomeFirstResponder()  //keyboard will display
+    }
 }
