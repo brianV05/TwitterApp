@@ -27,17 +27,16 @@ class HomeTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension // this is to have a fixed table view cell
         tableView.estimatedRowHeight = 150
         print("ViewDidLoad was called")
-       
     }
     
-    override func viewDidAppear(_ animated: Bool) {  //whereas, viewDidAppear repeats more than onces
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.loadTweet() // when the view Appears, run this func
+        self.loadTweet()
         print("ViewDidAppear was called")
     }
     
     @objc func loadTweet(){
-        numberOfTweet = 10
+        numberOfTweet = 20
         
         let myUrl  = "https://api.twitter.com/1.1/statuses/home_timeline.json"  //home_timeline url
         let myParms = ["count": numberOfTweet]  //parameters
@@ -60,12 +59,11 @@ class HomeTableViewController: UITableViewController {
         })
     }
     
-    
     //infinite scroll
     func loadMoreTweets(){
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
         //we will be adding 10 more tweets to the original
-        numberOfTweet = numberOfTweet + 5
+        numberOfTweet = numberOfTweet + 10
         let myParms = ["count": numberOfTweet]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParms, success:
@@ -73,7 +71,6 @@ class HomeTableViewController: UITableViewController {
             
             self.tweetArray.removeAll()
             for tweet in tweets{
-            
                 self.tweetArray.append(tweet)
             }
             self.tableView.reloadData()
@@ -112,13 +109,13 @@ class HomeTableViewController: UITableViewController {
         //for the name
         //extract the user becuase the value "name" is in the value "user"
         let user = tweetArray[indexPath.row]["user"] as? NSDictionary
-        cell.userNameLabel.text = user!["name"] as? String
+        cell.userNameLabel.text = user?["name"] as? String
         
         //for the content
         cell.tweetContentLabel.text = tweetArray[indexPath.row]["text"] as? String
         
         //for the image profile
-        let imageUrl = URL(string: (user!["profile_image_url_https"] as! String))
+        let imageUrl = URL(string: (user!["profile_image_url_https"] as? String)!)
         let data = try? Data(contentsOf: imageUrl!)
         
         if let imageData = data{
@@ -129,6 +126,8 @@ class HomeTableViewController: UITableViewController {
         //this is part of the retweet and fav section 
         cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
         cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+        
+        cell.setRetweeted(tweetArray[indexPath.row]["retweeted"] as! Bool)
         return cell
     }
     

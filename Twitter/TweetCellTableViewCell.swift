@@ -23,6 +23,7 @@ class TweetCellTableViewCell: UITableViewCell {
     var favorited: Bool = false //intial fav button to be false
     var tweetId:Int = -1
    
+   
     //actions for fav and retweet button
     @IBAction func favoriteTweet(_ sender: Any) {
         let toBeFavorite = !favorited
@@ -44,10 +45,28 @@ class TweetCellTableViewCell: UITableViewCell {
     
     
     @IBAction func retweet(_ sender: Any) {
+        TwitterAPICaller.client?.retweet(tweetId: tweetId, success: {
+            self.setRetweeted(true)
+        }, failure: { (error) in
+            print ("Error is retweeting: \(error)")
+        })
     }
     
     
-    func setFavorite(_ isFavorited:Bool){
+    func setRetweeted(_ isRetweeted: Bool){
+        if (isRetweeted){
+            reTweetButton.setImage(UIImage(named: "retweet-icon-green"), for: UIControl.State.normal)
+            reTweetButton.isEnabled = false
+        }else{
+            reTweetButton.setImage(UIImage(named: "retweet-icon"), for: UIControl.State.normal)
+            reTweetButton.isEnabled = true
+            
+        }
+    }
+    
+    
+    
+    func setFavorite(_ isFavorited: Bool){
         favorited = isFavorited
         if favorited{   //if the intial is equal to the isFavorite
             favButton.setImage(UIImage(named: "favor-icon-red"), for: UIControl.State.normal)    //then we will change the icon
