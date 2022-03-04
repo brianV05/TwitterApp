@@ -19,7 +19,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Srp-W2-s8i">
                                 <rect key="frame" x="96.5" y="309.5" width="182" height="48"/>
-                                <color key="backgroundColor" red="0.2139888331" green="0.95117410989999995" blue="0.94442790219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.16426126163357491" green="0.75129312970931617" blue="0.95117410989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="182" id="azm-ds-IZv"/>
                                     <constraint firstAttribute="height" constant="48" id="kMM-i3-I9x"/>
@@ -159,7 +159,6 @@
         <!--Tweet View Controller-->
         <scene sceneID="Eez-cg-RpO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ix2-lf-sY7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="eRU-Cg-0fF" customClass="TweetViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1sf-O7-HFT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -167,21 +166,33 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="b9U-dp-z4f">
                                 <rect key="frame" x="0.0" y="44" width="375" height="128"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.17864339109999999" green="0.80684829879999997" blue="0.95117410989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="J2I-xh-Bc6"/>
+                                    <constraint firstAttribute="height" constant="128" id="f4M-No-fM2"/>
                                 </constraints>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFl-bK-shl">
+                                <rect key="frame" x="292" y="175" width="73" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="73" id="GJ4-sQ-5Zc"/>
+                                    <constraint firstAttribute="height" constant="26" id="TgU-DT-58B"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4g4-2N-ack"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.16426126160000001" green="0.75129312969999995" blue="0.95117410989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="b9U-dp-z4f" firstAttribute="leading" secondItem="4g4-2N-ack" secondAttribute="leading" id="18X-zY-BeU"/>
-                            <constraint firstItem="4g4-2N-ack" firstAttribute="trailing" secondItem="b9U-dp-z4f" secondAttribute="trailing" id="gsC-mo-tsd"/>
-                            <constraint firstItem="b9U-dp-z4f" firstAttribute="top" secondItem="4g4-2N-ack" secondAttribute="top" id="ulW-CN-2zW"/>
+                            <constraint firstItem="b9U-dp-z4f" firstAttribute="trailing" secondItem="4g4-2N-ack" secondAttribute="trailing" id="4f0-Tz-ogp"/>
+                            <constraint firstItem="b9U-dp-z4f" firstAttribute="top" secondItem="4g4-2N-ack" secondAttribute="top" id="5lD-wh-TOM"/>
+                            <constraint firstItem="4g4-2N-ack" firstAttribute="trailing" secondItem="UFl-bK-shl" secondAttribute="trailing" constant="10" id="OJR-uk-j1k"/>
+                            <constraint firstItem="UFl-bK-shl" firstAttribute="top" secondItem="b9U-dp-z4f" secondAttribute="bottom" constant="3" id="Qdc-Te-a5C"/>
+                            <constraint firstItem="b9U-dp-z4f" firstAttribute="leading" secondItem="4g4-2N-ack" secondAttribute="leading" id="jNy-Fz-6Cd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="7cK-DP-oiF">
@@ -199,11 +210,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="counterLabel" destination="UFl-bK-shl" id="TVj-0v-vcy"/>
                         <outlet property="tweetTextView" destination="b9U-dp-z4f" id="vEu-ZC-gn7"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ix2-lf-sY7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="209" y="1041"/>
+            <point key="canvasLocation" x="208.80000000000001" y="1040.3298350824589"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NnF-Iz-y3E">
@@ -222,7 +235,7 @@
                             </textAttributes>
                         </navigationBarAppearance>
                         <navigationBarAppearance key="scrollEdgeAppearance">
-                            <color key="backgroundColor" red="0.2139888331" green="0.95117410989999995" blue="0.94442790219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.16426126160000001" green="0.75129312969999995" blue="0.95117410989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <textAttributes key="titleTextAttributes">
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </textAttributes>
@@ -239,7 +252,6 @@
         <!--Tweet Navigation Controller-->
         <scene sceneID="rnN-eb-PVZ">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ETN-g0-bEG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Z8q-zO-sg3" userLabel="Tweet Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="oT2-Te-KNs"/>
@@ -250,13 +262,13 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                         <navigationBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" red="0.2139888331" green="0.95117410989999995" blue="0.94442790219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.16426126160000001" green="0.75129312969999995" blue="0.95117410989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <textAttributes key="titleTextAttributes">
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </textAttributes>
                         </navigationBarAppearance>
                         <navigationBarAppearance key="scrollEdgeAppearance">
-                            <color key="backgroundColor" red="0.2139888331" green="0.95117410989999995" blue="0.94442790219999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.16426126160000001" green="0.75129312969999995" blue="0.95117410989999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <textAttributes key="titleTextAttributes">
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </textAttributes>
@@ -267,6 +279,7 @@
                         <segue destination="eRU-Cg-0fF" kind="relationship" relationship="rootViewController" id="XWP-77-uAS"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ETN-g0-bEG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-562" y="1042"/>
         </scene>
@@ -274,9 +287,6 @@
     <resources>
         <image name="favor-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

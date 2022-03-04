@@ -43,7 +43,7 @@ class TweetCellTableViewCell: UITableViewCell {
            
     }
     
-    
+    //the action when button is pressed
     @IBAction func retweet(_ sender: Any) {
         TwitterAPICaller.client?.retweet(tweetId: tweetId, success: {
             self.setRetweeted(true)
