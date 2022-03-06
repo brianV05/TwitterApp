@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTableViewController: UITableViewController {
+class HomeTableViewController: UITableViewController{
     
     // we will create a local container
     // var = never changes
@@ -27,6 +27,9 @@ class HomeTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension // this is to have a fixed table view cell
         tableView.estimatedRowHeight = 150
         print("ViewDidLoad was called")
+        
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -141,4 +144,21 @@ class HomeTableViewController: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return tweetArray.count
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //find the selected cell
+        let cell = sender as! UITableViewCell
+        
+        //pass the selected cell to the profile details
+        let indexPath = tableView.indexPath(for: cell)!
+        
+        let tweetArray = tweetArray[indexPath.row]
+        let profileViewController = segue.destination as! profileViewController
+        profileViewController.tweetArray = [tweetArray]
+    }
+    
+   
+    
+    
+
 }

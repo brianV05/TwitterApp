@@ -22,6 +22,7 @@ class TweetCellTableViewCell: UITableViewCell {
     
     var favorited: Bool = false //intial fav button to be false
     var tweetId:Int = -1
+    var retweeted = false
    
    
     //actions for fav and retweet button
@@ -42,27 +43,40 @@ class TweetCellTableViewCell: UITableViewCell {
         }
            
     }
-    
+
     //the action when button is pressed
     @IBAction func retweet(_ sender: Any) {
-        TwitterAPICaller.client?.retweet(tweetId: tweetId, success: {
-            self.setRetweeted(true)
-        }, failure: { (error) in
-            print ("Error is retweeting: \(error)")
-        })
+        let toBeRetweeted = !retweeted
+        if(toBeRetweeted){
+            TwitterAPICaller.client?.retweet(tweetId: tweetId, success: {
+                self.setRetweeted(true)
+            }, failure: { (error) in
+                print("retweet failed:\(error)")
+            })
+        }else{
+            TwitterAPICaller.client?.unRetweet(tweetId: tweetId, success: {
+                self.setRetweeted(false)
+            }, failure: { (error) in
+                print("unretweet issues:\(error)")
+            })
+        }
+      
     }
     
-    
+    //telling what it will happen when button is clicked
     func setRetweeted(_ isRetweeted: Bool){
+        retweeted = isRetweeted
         if (isRetweeted){
             reTweetButton.setImage(UIImage(named: "retweet-icon-green"), for: UIControl.State.normal)
-            reTweetButton.isEnabled = false
+            //reTweetButton.isEnabled = false
         }else{
             reTweetButton.setImage(UIImage(named: "retweet-icon"), for: UIControl.State.normal)
-            reTweetButton.isEnabled = true
+            //reTweetButton.isEnabled = true
             
         }
     }
+
+    
     
     
     
@@ -79,7 +93,7 @@ class TweetCellTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        profileImageView.layer.cornerRadius = 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
