@@ -148,7 +148,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Tweet" style="plain" id="w0d-Bn-9DV">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="Z8q-zO-sg3" kind="show" id="a5I-MB-UTP"/>
+                                <segue destination="Z8q-zO-sg3" kind="show" id="76y-E6-1rj"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

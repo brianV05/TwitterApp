@@ -144,7 +144,8 @@ class HomeTableViewController: UITableViewController{
         // #warning Incomplete implementation, return the number of rows
         return tweetArray.count
     }
-    
+    /*
+     this is from the profile view(NOT FINISHED)
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //find the selected cell
         let cell = sender as! UITableViewCell
@@ -155,7 +156,7 @@ class HomeTableViewController: UITableViewController{
         let tweetArray = tweetArray[indexPath.row]
         let profileViewController = segue.destination as! profileViewController
         profileViewController.tweetArray = [tweetArray]
-    }
+    }*/
     
    
     
